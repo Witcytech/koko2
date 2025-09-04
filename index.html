@@ -35,15 +35,19 @@
         #closeModal { position: absolute; top: 20px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; transition: 0.3s; cursor: pointer; }
         #pcBlockerModal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(20, 30, 40, 0.5); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); justify-content: center; align-items: center; }
         #petal-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 999; }
-.petal {
-    position: absolute;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 150px 0;
-    width: 20px;
-    height: 20px;
-    animation: fall linear;
-    will-change: transform, opacity; /* <-- เพิ่มบรรทัดนี้เข้ามา */
-}
+        
+        /* === START: โค้ดที่แก้ไข === */
+        .petal { 
+            position: absolute; 
+            background-color: rgba(255, 255, 255, 0.8); 
+            border-radius: 150px 0; 
+            width: 20px; 
+            height: 20px; 
+            animation: fall linear; /* 1. ลบ 'infinite' ออก */
+            will-change: transform, opacity; /* 2. เพิ่มบรรทัดนี้เพื่อใช้ GPU ช่วยเรนเดอร์ */
+        }
+        /* === END: โค้ดที่แก้ไข === */
+
         .petal.p2 { background-color: rgba(239, 219, 222, 0.8); }
         @keyframes fall { 0% { transform: translateY(-50px) rotateZ(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotateZ(720deg); opacity: 0; } }
     </style>
@@ -137,6 +141,8 @@
             }, { threshold: 0.1 });
             document.querySelectorAll('.animate-on-scroll').forEach(el => { el.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-1000', 'ease-out'); observer.observe(el); });
             new Swiper(".mySwiper", { slidesPerView: 1, spaceBetween: 30, loop: true, centeredSlides: true, autoplay: { delay: 3500, disableOnInteraction: false }, pagination: { el: ".swiper-pagination", clickable: true } });
+            
+            // --- START: โค้ดที่แก้ไข (ส่วนของ Petal Effect) ---
             const petalContainer = document.getElementById('petal-container');
             const createPetal = () => {
                 const petal = document.createElement('div'); petal.classList.add('petal');
@@ -148,9 +154,30 @@
                 petal.addEventListener('animationend', () => { petal.remove(); });
                 petalContainer.appendChild(petal);
             };
-            // UPDATE: Reduced petal effect by increasing interval
-            setInterval(createPetal, 7500);
+
+            // 3. เปลี่ยนมาใช้ requestAnimationFrame เพื่อความลื่นไหลสูงสุด
+            let lastPetalTime = 0;
+            // สร้างกลีบใหม่ทุกๆ X มิลลิวินาที (เช่น 5000 = 5 วินาที)
+            // ลองปรับค่านี้เพื่อหาความถี่ที่เหมาะสมกับความสวยงามและประสิทธิภาพ
+            const petalCreationInterval = 5000; 
+
+            function animationLoop(currentTime) {
+                if (!lastPetalTime) {
+                    lastPetalTime = currentTime;
+                }
+                const elapsed = currentTime - lastPetalTime;
+
+                if (elapsed > petalCreationInterval) {
+                    createPetal();
+                    lastPetalTime = currentTime; 
+                }
+                requestAnimationFrame(animationLoop);
+            }
+            // เริ่มต้นการทำงานของอนิเมชัน
+            requestAnimationFrame(animationLoop);
+            // --- END: โค้ดที่แก้ไข ---
         });
+
         const modal = document.getElementById('imageModal'); const modalImg = document.getElementById("modalImage");
         function openModal(src) { modal.style.display = "flex"; modalImg.src = src; }
         function closeModal() { modal.style.display = "none"; }
