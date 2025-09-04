@@ -35,7 +35,7 @@
         #closeModal { position: absolute; top: 20px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; transition: 0.3s; cursor: pointer; }
         #pcBlockerModal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(20, 30, 40, 0.5); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); justify-content: center; align-items: center; }
         #petal-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 999; }
-        .petal { position: absolute; background-color: rgba(255, 255, 255, 0.8); border-radius: 150px 0; width: 20px; height: 20px; animation: fall linear infinite; will-change: transform, opacity; }
+        .petal { position: absolute; background-color: rgba(255, 255, 255, 0.8); border-radius: 150px 0; width: 20px; height: 20px; will-change: transform, opacity; }
         .petal.p2 { background-color: rgba(239, 219, 222, 0.8); }
         @keyframes fall { 0% { transform: translateY(-50px) rotateZ(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotateZ(720deg); opacity: 0; } }
     </style>
@@ -141,7 +141,7 @@
                 petalContainer.appendChild(petal);
             };
             // UPDATE: Reduced petal effect by increasing interval
-            setInterval(createPetal, 15000);
+            setInterval(createPetal, 7500);
         });
         const modal = document.getElementById('imageModal'); const modalImg = document.getElementById("modalImage");
         function openModal(src) { modal.style.display = "flex"; modalImg.src = src; }
