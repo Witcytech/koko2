@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theephop & Nalin's Wedding</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&family=Playfair+Display:ital,wght@1,400;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <style>
+        :root {
+            --bg-color: #D6E0F0;
+            --text-primary: #2A446B;
+            --text-secondary: #445D89;
+            --accent-primary: #8DABCB;
+            --accent-secondary: #B2BEB5;
+            --white-ish: #F7F9FB;
+        }
+        body { font-family: 'Mitr', sans-serif; background-color: var(--bg-color); color: var(--text-secondary); }
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-great-vibes { font-family: 'Great Vibes', cursive; }
+        .hero-bg { background-image: url('image/IMG_1641.jpg'); background-size: cover; background-position: center; }
+        .section-title { font-family: 'Playfair Display', serif; font-weight: 500; font-style: italic; color: var(--text-primary); }
+        .countdown-box { background-color: rgba(255, 255, 255, 0.7); backdrop-filter: blur(5px); border: 1px solid rgba(141, 171, 203, 0.5); }
+        .btn-primary { background-color: var(--accent-primary); color: white; }
+        .btn-primary:hover { background-color: var(--text-secondary); }
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-color); display: flex; justify-content: center; align-items: center; z-index: 1000; transition: opacity 0.5s ease-in-out; }
+        .heart-pulse { animation: pulse 1.5s infinite ease-in-out; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .heart-pulse path { fill: var(--text-secondary); }
+        #imageModal { display: none; position: fixed; z-index: 1001; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.85); justify-content: center; align-items: center; }
+        #modalImage { margin: auto; display: block; max-width: 90%; max-height: 85vh; border-radius: 8px; }
+        #closeModal { position: absolute; top: 20px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; transition: 0.3s; cursor: pointer; }
+        #closeModal:hover, #closeModal:focus { color: #bbb; }
+        
+        /* UPDATE: Added backdrop blur to PC Blocker */
+        #pcBlockerModal {
+            display: none; position: fixed; z-index: 2000; left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(20, 30, 40, 0.5); /* Semi-transparent background */
+            backdrop-filter: blur(8px); /* Blur effect */
+            -webkit-backdrop-filter: blur(8px); /* For Safari */
+            justify-content: center; align-items: center;
+        }
+    </style>
+</head>
+<body class="text-gray-700 antialiased pb-20 md:pb-0">
+
+    <div id="pcBlockerModal">
+        <div class="bg-white text-center p-8 rounded-lg shadow-2xl max-w-md mx-4">
+            <svg class="w-16 h-16 text-yellow-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            <h2 class="text-2xl font-bold text-[var(--text-primary)] mb-4">ไม่รองรับการแสดงผลบนอุปกรณ์นี้</h2>
+            <p class="text-gray-700 mb-6">เว็บไซต์นี้ถูกออกแบบมาเพื่อประสบการณ์ที่ดีที่สุดบนอุปกรณ์เคลื่อนที่ (โทรศัพท์มือถือ) กรุณาเปิดเว็บไซต์นี้ผ่านโทรศัพท์ของคุณ</p>
+            <p class="text-sm text-gray-500">หากคุณต้องการเข้าถึงเว็บไซต์ในเวอร์ชัน PC กรุณาติดต่อผู้ดูแลระบบเพื่อดำเนินการปลดล็อกให้คุณ</p>
+        </div>
+    </div>
+
+    <div id="preloader">
+        <svg class="heart-pulse" width="100" height="100" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+    </div>
+
+    <div id="imageModal" onclick="closeModal()">
+        <span id="closeModal" onclick="closeModal()">&times;</span>
+        <img id="modalImage" alt="Large view of gallery image">
+    </div>
+
+    <header class="hero-bg text-white shadow-lg">
+        <div class="flex flex-col items-center justify-center min-h-screen bg-black bg-opacity-30 p-6 text-center">
+            <p class="text-lg md:text-xl tracking-widest mb-2">WE ARE GETTING MARRIED</p>
+            <h1 class="font-great-vibes text-7xl md:text-9xl font-bold">Theephop</h1>
+            <h2 class="font-playfair text-4xl md:text-5xl my-4">&</h2>
+            <h1 class="font-great-vibes text-7xl md:text-9xl font-bold">Nalin</h1>
+            <div class="w-24 h-px bg-white my-8"></div>
+            <p class="text-xl md:text-2xl font-light">14 กุมภาพันธ์ 2569</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-16">
+        
+        <section id="story" class="relative text-center max-w-3xl mx-auto mb-20 animate-on-scroll">
+            <h2 class="section-title text-4xl mb-4">เรื่องราวของเรา</h2>
+            <div class="w-16 h-px bg-gray-300 mx-auto my-6"></div>
+            <p class="text-lg leading-relaxed">การเดินทางของเราเริ่มต้นจาก... (เพิ่มเรื่องราวความรักของคุณที่นี่) เราได้เรียนรู้ เติบโต และสร้างความทรงจำที่สวยงามร่วมกันมานับไม่ถ้วน วันนี้ เราพร้อมแล้วที่จะเริ่มต้นบทใหม่ของชีวิตในฐานะคู่ชีวิต และอยากเชิญทุกท่านมาร่วมเป็นส่วนหนึ่งในวันพิเศษของเรา</p>
+        </section>
+
+        <section id="events" class="mb-20 animate-on-scroll">
+            <h2 class="section-title text-4xl text-center mb-12">กำหนดการและสถานที่</h2>
+            <div class="max-w-5xl mx-auto bg-white/70 p-8 rounded-lg shadow-lg backdrop-blur-sm">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-center mb-12"><div class="flex flex-col items-center"><img src="https://placehold.co/80x80/B2BEB5/2A446B?text=ขันหมาก" alt="ขันหมาก" class="w-16 h-16 mb-2 rounded-full"><p class="text-lg font-bold text-[var(--text-primary)]">09.09 น.</p><p>พิธีแห่ขันหมาก</p></div><div class="flex flex-col items-center"><img src="https://placehold.co/80x80/B2BEB5/2A446B?text=พิธีสงฆ์" alt="พิธีสงฆ์" class="w-16 h-16 mb-2 rounded-full"><p class="text-lg font-bold text-[var(--text-primary)]">10.09 น.</p><p>พิธีสงฆ์</p></div><div class="flex flex-col items-center"><img src="https://placehold.co/80x80/B2BEB5/2A446B?text=รดน้ำ" alt="รดน้ำสังข์" class="w-16 h-16 mb-2 rounded-full"><p class="text-lg font-bold text-[var(--text-primary)]">11.09 น.</p><p>พิธีรดน้ำสังข์</p></div><div class="flex flex-col items-center"><img src="https://placehold.co/80x80/B2BEB5/2A446B?text=เลี้ยง" alt="งานเลี้ยง" class="w-16 h-16 mb-2 rounded-full"><p class="text-lg font-bold text-[var(--text-primary)]">18.00 น.</p><p>ฉลองมงคลสมรส</p></div></div>
+                <div class="text-center border-t border-gray-300 pt-8 my-8"><h3 class="text-3xl font-medium text-[var(--text-secondary)] mb-4 font-playfair">Dress Code</h3><div class="flex justify-center items-center gap-3"><div class="w-8 h-8 rounded-full bg-[#B2BEB5] border-2 border-white shadow"></div><div class="w-8 h-8 rounded-full bg-[#D6E0F0] border-2 border-white shadow"></div><div class="w-8 h-8 rounded-full bg-[#8DABCB] border-2 border-white shadow"></div><div class="w-8 h-8 rounded-full bg-[#445D89] border-2 border-white shadow"></div><div class="w-8 h-8 rounded-full bg-[#2A446B] border-2 border-white shadow"></div></div><p class="mt-4 text-gray-600">สวมใส่เสื้อผ้าโทนสีเขียว, ฟ้า, กรม, หรือสีเบจ</p></div>
+                <div class="text-center border-t border-gray-300 pt-8"><h3 class="text-3xl font-medium text-[var(--text-secondary)] mb-4 font-playfair">Venue</h3><p class="text-lg mb-2">ณ Grand Fortune Hotel Nakhon Si Thammarat</p><div class="rounded-lg overflow-hidden shadow-md my-4"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3947.014022415175!2d99.96781487504364!3d8.435728891583096!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3054179e830d635b%3A0x628043cf181c0021!2sGrand%20Fortune%20Hotel%20Nakhon%20Si%20Thammarat!5e0!3m2!1sth!2sth!4v1715012356877!5m2!1sth!2sth" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div><a href="https://maps.app.goo.gl/3fK9X3tM2fG8z6bPA" class="inline-block mt-4 btn-primary px-6 py-2 rounded-full transition-colors" target="_blank">ดูแผนที่</a></div>
+            </div>
+        </section>
+
+        <section id="moments" class="text-center mb-20 animate-on-scroll">
+            <h2 class="section-title text-4xl mb-12">Our Moments</h2>
+            <div class="swiper mySwiper max-w-6xl mx-auto"><div class="swiper-wrapper"><div class="swiper-slide"><img src="image/family-photo.jpg" alt="ภาพครอบครัว" class="w-full h-auto object-contain rounded-lg shadow-md max-h-[600px]"></div><div class="swiper-slide"><img src="https://placehold.co/800x500/F0EAE4/445D89?text=Our+Memory+1" alt="ภาพความทรงจำ 1" class="w-full h-auto object-contain rounded-lg shadow-md max-h-[600px]"></div><div class="swiper-slide"><img src="https://placehold.co/800x500/E8DED5/445D89?text=Our+Memory+2" alt="ภาพความทรงจำ 2" class="w-full h-auto object-contain rounded-lg shadow-md max-h-[600px]"></div></div><div class="swiper-pagination mt-8"></div></div>
+        </section>
+
+        <section id="gallery" class="text-center mb-20 animate-on-scroll">
+            <h2 class="section-title text-4xl mb-12">แกลเลอรี่ความทรงจำ</h2>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4"><div class="overflow-hidden rounded-lg shadow-md cursor-pointer"><img src="https://placehold.co/400x500/DED2C9/2A446B?text=Photo+1" alt="ภาพ 1" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300" onclick="openModal(this.src)"></div><div class="overflow-hidden rounded-lg shadow-md cursor-pointer"><img src="https://placehold.co/400x500/B2BEB5/2A446B?text=Photo+2" alt="ภาพ 2" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300" onclick="openModal(this.src)"></div><div class="overflow-hidden rounded-lg shadow-md cursor-pointer"><img src="image/family-photo.jpg" alt="ภาพครอบครัว" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300" onclick="openModal(this.src)"></div><div class="overflow-hidden rounded-lg shadow-md cursor-pointer"><img src="https://placehold.co/400x500/8DABCB/FFFFFF?text=Photo+4" alt="ภาพ 4" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300" onclick="openModal(this.src)"></div><div class="overflow-hidden rounded-lg shadow-md cursor-pointer"><img src="https://placehold.co/400x500/445D89/FFFFFF?text=Photo+5" alt="ภาพ 5" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300" onclick="openModal(this.src)"></div><div class="overflow-hidden rounded-lg shadow-md cursor-pointer"><img src="https://placehold.co/400x500/D6E0F0/2A446B?text=Photo+6" alt="ภาพ 6" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300" onclick="openModal(this.src)"></div><div class="overflow-hidden rounded-lg shadow-md cursor-pointer"><img src="https://placehold.co/400x500/B2BEB5/FFFFFF?text=Photo+7" alt="ภาพ 7" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300" onclick="openModal(this.src)"></div><div class="overflow-hidden rounded-lg shadow-md cursor-pointer"><img src="https://placehold.co/400x500/8DABCB/2A446B?text=Photo+8" alt="ภาพ 8" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300" onclick="openModal(this.src)"></div><div class="overflow-hidden rounded-lg shadow-md cursor-pointer"><img src="https://placehold.co/400x500/445D89/FFFFFF?text=Photo+9" alt="ภาพ 9" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300" onclick="openModal(this.src)"></div><div class="overflow-hidden rounded-lg shadow-md cursor-pointer"><img src="https://placehold.co/400x500/2A446B/FFFFFF?text=Photo+10" alt="ภาพ 10" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300" onclick="openModal(this.src)"></div></div>
+        </section>
+
+        <section id="rsvp" class="relative text-center max-w-3xl mx-auto mb-20 animate-on-scroll">
+            <h2 class="section-title text-4xl mb-4">ตอบรับคำเชิญ (RSVP)</h2>
+            <p class="text-lg leading-relaxed mb-8">กรุณายืนยันการเข้าร่วมงานภายในวันที่ 31 มกราคม 2569</p>
+            <form class="bg-[var(--white-ish)] p-8 rounded-lg shadow-lg text-left"><div class="mb-4"><label for="name" class="block text-lg font-medium mb-2">ชื่อ - นามสกุล</label><input type="text" id="name" class="w-full px-4 py-3 rounded-md border-gray-300 focus:ring-2 focus:ring-[var(--accent-primary)]" required></div><div class="mb-4"><label for="guest-count" class="block text-lg font-medium mb-2">จำนวนแขก (รวมคุณด้วย)</label><input type="number" id="guest-count" min="1" value="1" class="w-full px-4 py-3 rounded-md border-gray-300 focus:ring-2 focus:ring-[var(--accent-primary)]" required></div><div class="mb-4"><p class="block text-lg font-medium mb-2">ท่านเป็นแขกฝั่ง</p><div class="flex gap-6"><label class="flex items-center"><input type="radio" name="guest-side" value="groom" class="mr-2 h-4 w-4 text-[var(--accent-primary)] focus:ring-[var(--accent-primary)]">เจ้าบ่าว</label><label class="flex items-center"><input type="radio" name="guest-side" value="bride" class="mr-2 h-4 w-4 text-[var(--accent-primary)] focus:ring-[var(--accent-primary)]">เจ้าสาว</label></div></div><div class="mb-6"><label for="relationship" class="block text-lg font-medium mb-2">ความสัมพันธ์กับคู่บ่าวสาว</label><input type="text" id="relationship" class="w-full px-4 py-3 rounded-md border-gray-300 focus:ring-2 focus:ring-[var(--accent-primary)]" placeholder="เช่น เพื่อน, ญาติ, เพื่อนร่วมงาน"></div><button type="submit" class="w-full btn-primary font-bold py-3 rounded-full transition-colors">ยืนยันการเข้าร่วม</button></form>
+        </section>
+
+        <section id="gift" class="text-center mb-20 animate-on-scroll">
+            <h2 class="section-title text-4xl mb-4">ของขวัญแทนใจ</h2>
+            <p class="text-lg leading-relaxed mb-8 max-w-3xl mx-auto">การมาร่วมงานของทุกท่านคือของขวัญที่ดีที่สุด แต่หากท่านประสงค์จะมอบของขวัญแทนใจ สามารถร่วมอวยพรผ่านช่องทางนี้ได้เลยครับ</p>
+            <div class="bg-white/70 p-8 rounded-lg shadow-lg max-w-md mx-auto text-center backdrop-blur-sm"><h3 class="text-3xl font-medium text-[var(--text-secondary)] mb-4 font-playfair">Wedding Gift</h3><p class="text-lg mb-2">ธีภพ มงคลชัย และ นลิน มั่งมี</p><p class="text-lg mb-4">ธนาคารกรุงไทย</p><a href="image/payment-qr.png" download="Theephop-Nalin-Wedding-Gift-QR.png" class="inline-block my-4"><img src="image/payment-qr.png" alt="QR Code สำหรับโอนเงิน" class="w-48 h-48 mx-auto rounded-lg shadow-md transition-transform hover:scale-105" title="คลิกเพื่อดาวน์โหลด QR Code"></a><p class="text-sm text-gray-500 mt-2">กดที่รูป QR Code เพื่อดาวน์โหลด</p></div>
+        </section>
+        
+        <section id="notes" class="relative text-center max-w-3xl mx-auto mb-20 animate-on-scroll">
+            <h2 class="section-title text-4xl mb-4">Memorable Notes</h2>
+            <p class="text-lg leading-relaxed mb-8">ร่วมแบ่งปันความทรงจำดีๆ หรือคำอวยพรถึงคู่บ่าว-สาวได้ที่นี่</p>
+            <form class="bg-white p-8 rounded-lg shadow-lg"><div class="mb-6"><label for="note-name" class="block text-left text-lg font-medium text-gray-700 mb-2">ชื่อของคุณ</label><input type="text" id="note-name" name="note-name" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-[var(--accent-primary)]" placeholder="เช่น ธีภพ หรือ ครอบครัวมงคลชัย"></div><div class="mb-6"><label for="note-message" class="block text-left text-lg font-medium text-gray-700 mb-2">ข้อความถึงคู่บ่าว-สาว</label><textarea id="note-message" name="note-message" rows="5" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-[var(--accent-primary)]" placeholder="เขียนข้อความอวยพรที่นี่..."></textarea></div><button type="submit" class="w-full btn-primary font-bold py-3 rounded-full transition-colors">ส่งข้อความ</button></form>
+        </section>
+
+    </main>
+    
+    <nav class="fixed bottom-0 left-0 right-0 bg-[var(--accent-primary)] text-white shadow-lg md:hidden z-50"><div class="flex justify-around items-center h-16"><a href="#" class="flex flex-col items-center justify-center w-full h-full hover:bg-[var(--text-secondary)] transition-colors"><svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg><span class="text-xs">หน้าแรก</span></a><a href="#story" class="flex flex-col items-center justify-center w-full h-full hover:bg-[var(--text-secondary)] transition-colors"><svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg><span class="text-xs">เรื่องราว</span></a><a href="#events" class="flex flex-col items-center justify-center w-full h-full hover:bg-[var(--text-secondary)] transition-colors"><svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg><span class="text-xs">กำหนดการ</span></a><a href="#gallery" class="flex flex-col items-center justify-center w-full h-full hover:bg-[var(--text-secondary)] transition-colors"><svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg><span class="text-xs">แกลเลอรี่</span></a><a href="#rsvp" class="flex flex-col items-center justify-center w-full h-full hover:bg-[var(--text-secondary)] transition-colors"><svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><span class="text-xs">RSVP</span></a></div></nav>
+    
+    <footer class="bg-[var(--text-primary)] text-white text-center p-8 mt-16">
+        <div class="max-w-4xl mx-auto"><h3 class="font-great-vibes text-5xl mb-4">Thank You</h3><p class="text-gray-300">ขอบคุณที่มาร่วมเป็นส่วนหนึ่งในวันสำคัญของเรา</p><p class="mt-4 text-sm font-playfair">Theephop & Nalin</p>
+            <!-- UPDATE: Footer credit with profile picture -->
+            <div class="border-t border-gray-600 mt-8 pt-6">
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-gray-400">
+                    <img src="image/creator-profile.jpg" alt="Witcytech Profile" class="w-16 h-16 rounded-full border-2 border-gray-500 object-cover">
+                    <div class="text-center sm:text-left">
+                        <p class="font-semibold text-base">Witcytech [GitHub] — 2568</p>
+                        <p class="text-xs mt-1 text-gray-500">ปรับปรุงล่าสุด 30 มิถุนายน 2568 เวลา 21:40 น.</p>
+                        <div class="flex justify-center sm:justify-start items-center gap-4 mt-2">
+                            <a href="#" aria-label="Facebook" class="hover:text-white transition-colors"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg></a>
+                            <a href="#" aria-label="Instagram" class="hover:text-white transition-colors"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.85s.012-3.584.07-4.85c.148-3.227 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.802C8.843 3.965 8.548 3.977 7.29 4.032c-2.711.124-3.972 1.4-4.096 4.096-.055 1.258-.066 1.553-.066 4.872s.011 3.613.066 4.872c.124 2.696 1.385 3.973 4.096 4.096 1.258.055 1.553.066 4.872.066s3.613-.011 4.872-.066c2.711-.124 3.972-1.4 4.096-4.096.055-1.258.066-1.553-.066-4.872s-.011-3.613-.066-4.872c-.124-2.697-1.385-3.973-4.096-4.096-1.258-.055-1.553-.066-4.872-.066zM12 7.297c-2.599 0-4.703 2.104-4.703 4.703s2.104 4.703 4.703 4.703 4.703-2.104 4.703-4.703-2.104-4.703-4.703-4.703zm0 7.606c-1.6 0-2.903-1.303-2.903-2.903s1.303-2.903 2.903-2.903 2.903 1.303 2.903 2.903-1.303 2.903-2.903 2.903zm4.875-7.737a1.125 1.125 0 100-2.25 1.125 1.125 0 000 2.25z"/></svg></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkDevice = () => {
+                const urlParams = new URLSearchParams(window.location.search);
+                const isDevMode = urlParams.get('dev') === 'true';
+                if (!isDevMode && window.innerWidth >= 1024) {
+                    document.getElementById('pcBlockerModal').style.display = 'flex';
+                    // UPDATE: Lock scrolling when modal is active
+                    document.documentElement.style.overflow = 'hidden';
+                } else {
+                    document.getElementById('pcBlockerModal').style.display = 'none';
+                    // UPDATE: Ensure scrolling is re-enabled if not blocked
+                    document.documentElement.style.overflow = '';
+                }
+            };
+            checkDevice();
+            window.addEventListener('resize', checkDevice);
+
+            // Preloader, Countdown, and Animations scripts remain unchanged.
+            // ...
+
+            const preloader = document.getElementById('preloader');
+            preloader.style.opacity = '0';
+            setTimeout(() => { preloader.style.display = 'none'; }, 500);
+
+            const observer = new IntersectionObserver((e) => {
+                e.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                        entry.target.classList.remove('opacity-0', 'translate-y-10');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                el.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-1000', 'ease-out');
+                observer.observe(el);
+            });
+
+            new Swiper(".mySwiper", { slidesPerView: 1, spaceBetween: 30, loop: true, centeredSlides: true, autoplay: { delay: 3500, disableOnInteraction: false }, pagination: { el: ".swiper-pagination", clickable: true } });
+        });
+
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById("modalImage");
+        function openModal(src) { modal.style.display = "flex"; modalImg.src = src; }
+        function closeModal() { modal.style.display = "none"; }
+    </script>
+</body>
+</html>
